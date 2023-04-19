@@ -1,0 +1,2 @@
+const project = await ProjectModal.aggregate([{$match:{_id:ObjectId(req.params.projectId)}},{$unwind:'$members'},{$lookup:{from:'users',localField:'members.userId',foreignField:'_id',as:'memberData'}},{$unwind:"$memberData"},{$project:{_id:0,userEmail:"$memberData.email"}}])
+    const email = project[0].userEmail;
